@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Pop Group Maker 💗</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffe0f0, #e8dcff);
+  color: #56345f;
+  text-align: center;
+  padding: 20px;
+}
+.card {
+  max-width: 500px;
+  margin: 20px auto;
+  background: white;
+  padding: 25px;
+  border-radius: 25px;
+  box-shadow: 0 5px 20px #cba9dc;
+}
+h1 { color: #d34e9a; }
+label { display: block; margin-top: 18px; font-weight: bold; }
+select, input, button {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border-radius: 12px;
+  border: 1px solid #e0b5dc;
+  font-size: 16px;
+}
+button {
+  background: #e45da8;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 22px;
+}
+#result {
+  display: none;
+  margin-top: 25px;
+  padding: 20px;
+  background: #fff0f8;
+  border-radius: 18px;
+  text-align: left;
+}
+.member { padding: 8px; border-bottom: 1px dashed #e4b8d6; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🎤 K-Pop Group Maker 🎀</h1>
+  <p>Create your dream K-pop group!</p>
+
+  <label for="groupType">1. Choose your group type</label>
+  <select id="groupType">
+    <option>Girl Group</option>
+    <option>Boy Group</option>
+    <option>Co-ed Group</option>
+  </select>
+
+  <label for="members">2. How many members?</label>
+  <select id="members">
+    <option value="4">4 members</option>
+    <option value="5">5 members</option>
+    <option value="7">7 members</option>
+    <option value="9">9 members</option>
+  </select>
+
+  <label for="concept">3. Choose your concept</label>
+  <select id="concept">
+    <option>Elegant & Dreamy ✨</option>
+    <option>Cute & Colorful 🍓</option>
+    <option>Dark & Mysterious 🖤</option>
+    <option>Girl Crush 🔥</option>
+    <option>Y2K Pop 💿</option>
+    <option>Fantasy & Magical 🦋</option>
+  </select>
+
+  <label for="groupName">4. Give your group a name</label>
+  <input id="groupName" placeholder="e.g. Pink Nova">
+
+  <label for="fandom">5. Choose your fandom name</label>
+  <input id="fandom" placeholder="e.g. Starlights">
+
+  <label for="colors">6. Official colors</label>
+  <input id="colors" placeholder="e.g. Pink and silver">
+
+  <label for="song">7. Debut song title</label>
+  <input id="song" placeholder="e.g. Moonlight">
+
+  <button onclick="createGroup()">✨ CREATE MY GROUP ✨</button>
+
+  <div id="result" aria-live="polite"></div>
+</div>
+
+<script>
+function createGroup() {
+  const type = document.getElementById('groupType').value;
+  const count = Number(document.getElementById('members').value);
+  const concept = document.getElementById('concept').value;
+  const name = document.getElementById('groupName').value.trim() || 'Dream Stars';
+  const fandom = document.getElementById('fandom').value.trim() || 'Starlights';
+  const colors = document.getElementById('colors').value.trim() || 'Pink and silver';
+  const song = document.getElementById('song').value.trim() || 'Our First Dream';
+
+  const names = ['Yuna', 'Minji', 'Sora', 'Jisoo', 'Hana', 'Mina', 'Nari', 'Jae', 'Rin'];
+  const positions = ['Leader', 'Main Vocalist', 'Main Dancer', 'Main Rapper',
+                     'Lead Vocalist', 'Visual', 'All-Rounder', 'Rapper', 'Maknae'];
+
+  let membersHTML = '';
+  for (let i = 0; i < count; i++) {
+    membersHTML += '<div class="member">⭐ <b>' + names[i] +
+      '</b> — ' + positions[i] + '</div>';
+  }
+
+  const result = document.getElementById('result');
+  result.innerHTML = '<h2>💖 Your K-pop Group</h2>' +
+    '<h3>' + escapeHTML(name) + '</h3>' +
+    '<p><b>Group type:</b> ' + escapeHTML(type) + '</p>' +
+    '<p><b>Concept:</b> ' + escapeHTML(concept) + '</p>' +
+    '<p><b>Members:</b> ' + count + '</p>' + membersHTML +
+    '<p><b>Fandom:</b> ' + escapeHTML(fandom) + '</p>' +
+    '<p><b>Official colors:</b> ' + escapeHTML(colors) + '</p>' +
+    '<p><b>Debut song:</b> 🎵 ' + escapeHTML(song) + '</p>' +
+    '<button onclick="window.print()">🖨️ Save or print my group</button>';
+  result.style.display = 'block';
+  result.scrollIntoView({behavior: 'smooth'});
+}
+function escapeHTML(text) {
+  return text.replace(/[&<>"']/g, function(c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+</script>
+</body>
+</html>
